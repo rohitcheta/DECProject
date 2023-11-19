@@ -14,4 +14,11 @@
       service:
         name: docker
         state: started
-
+    - name: clone the repo
+      git:
+        repo: https://github.com/rohitcheta/DECProject.git
+        dest: /tmp/myrepo
+    - name: Build the image from dockerfile
+      command: chdir=/tmp/myrepo docker build -t decimage .
+    - name: Deploy the image
+      command: docker run -d -P decimage 
